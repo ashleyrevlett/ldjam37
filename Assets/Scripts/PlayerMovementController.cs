@@ -3,67 +3,46 @@ using System.Collections;
 
 public class PlayerMovementController : MonoBehaviour {
 
-	[HideInInspector] public bool facingRight = true;
-	[HideInInspector] public bool jump = false;
-	public float moveForce = 60f;
-	public float maxSpeed = 2f;
-	public float jumpForce = 10f;
-	public Transform groundCheck;
+	//Movement related variables
+	public float moveSpeed;  //Our general move speed. This is effected by our
+	//InputManager > Horizontal button's Gravity and Sensitivity
+	//Changing the Gravity/Sensitivty will in turn result in more loose or tighter control
 
-	private bool grounded = false;
-//	private Animator anim;
-	private Rigidbody2D rb2d;
+	//Jump related variables
+	public float initialJumpForce;       //How much force to give to our initial jump
+	private bool playerJumped;           //Tell us if the player has jumped
+	private bool playerJumping;          //Tell us if the player is holding down the jump button
+	public Transform groundChecker;      //Gameobject required, placed where you wish "ground" to be detected from
+	private bool isGrounded;             //Check to see if we are grounded
 
+	void Update () {
+		//Casts a line between our ground checker gameobject and our player
+		//If the floor is between us and the groundchecker, this makes "isGrounded" true
+		isGrounded = Physics2D.Linecast(transform.position, groundChecker.position, 1 << LayerMask.NameToLayer("Default"));
 
-	// Use this for initialization
-	void Awake () 
-	{
-//		anim = GetComponent<Animator>();
-		rb2d = GetComponent<Rigidbody2D>();
-	}
-
-	// Update is called once per frame
-	void Update () 
-	{
-		grounded = Physics2D.Linecast(transform.position, groundCheck.position, 1 << LayerMask.NameToLayer("Default"));
-
-		if (Input.GetButtonDown("Jump") && grounded)
-		{
-			jump = true;
+		//If our player hit the jump key, then it's true that we jumped!
+		if (Input.GetButtonDown("Jump") && isGrounded){
+			playerJumped = true;   //Our player jumped!
+			playerJumping = true;  //Our player is jumping!
 		}
-	}
 
-	void FixedUpdate()
-	{
-		float h = Input.GetAxis("Horizontal");
-
-//		anim.SetFloat("Speed", Mathf.Abs(h));
-
-		if (h * rb2d.velocity.x < maxSpeed)
-			rb2d.AddForce(Vector2.right * h * moveForce);
-
-		if (Mathf.Abs (rb2d.velocity.x) > maxSpeed)
-			rb2d.velocity = new Vector2(Mathf.Sign (rb2d.velocity.x) * maxSpeed, rb2d.velocity.y);
-
-		if (h > 0 && !facingRight)
-			Flip ();
-		else if (h < 0 && facingRight)
-			Flip ();
-
-		if (jump)
-		{
-//			anim.SetTrigger("Jump");
-			rb2d.AddForce(new Vector2(0f, jumpForce));
-			jump = false;
+		//If our player lets go of the Jump button OR if our jump was held down to the maximum amount...
+		if (Input.GetButtonUp("Jump")){
+			playerJumping = false; //... then set PlayerJumping to false
 		}
+
 	}
 
+	void FixedUpdate (){
+		
+		//If we're not sprinting, then give us our general momentum
+		GetComponent<Rigidbody2D>().velocity = new Vector2(Input.GetAxis("Horizontal") * moveSpeed * Time.deltaTime,GetComponent<Rigidbody2D>().velocity.y);
 
-	void Flip()
-	{
-		facingRight = !facingRight;
-		Vector3 theScale = transform.localScale;
-		theScale.x *= -1;
-		transform.localScale = theScale;
+		//If our player pressed the jump key...
+		if (playerJumped){
+			GetComponent<Rigidbody2D>().AddForce(new Vector2(0,initialJumpForce)); //"Jump" our player up in the air!
+			playerJumped = false; //Our player already jumped, so no need to jump again just yet
+		}
+
 	}
 }

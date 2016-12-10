@@ -23,8 +23,24 @@ GameObject:
   - 61: {fileID: 61000010670925940}
   - 50: {fileID: 50000013504387950}
   - 114: {fileID: 114000010480481284}
+  - 114: {fileID: 114000010781143316}
   m_Layer: 0
   m_Name: player
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &1000011281749536
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 4000012724350376}
+  m_Layer: 0
+  m_Name: ground_check
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -39,7 +55,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 4000013733522664}
   m_Layer: 0
-  m_Name: ground_check
+  m_Name: ammo_origin
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -52,12 +68,26 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000010789504320}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.69, y: 2.28, z: 0}
+  m_LocalPosition: {x: -3.461, y: 2.379, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
+  - {fileID: 4000012724350376}
   - {fileID: 4000013733522664}
   m_Father: {fileID: 0}
+  m_RootOrder: 0
+--- !u!4 &4000012724350376
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000011281749536}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.154, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_Children: []
+  m_Father: {fileID: 4000012511624782}
   m_RootOrder: 0
 --- !u!4 &4000013733522664
 Transform:
@@ -66,12 +96,12 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000012229315666}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.31, y: 0.01, z: 0}
+  m_LocalPosition: {x: 0.553, y: 0.285, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 4000012511624782}
-  m_RootOrder: 0
+  m_RootOrder: 1
 --- !u!50 &50000013504387950
 Rigidbody2D:
   serializedVersion: 2
@@ -114,12 +144,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0a17c2e112c54aeca7f4440478359fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  facingRight: 1
+  facingRight: 0
   jump: 0
-  moveForce: 60
+  moveForce: 120
   maxSpeed: 1
-  jumpForce: 1000
-  groundCheck: {fileID: 4000013733522664}
+  jumpForce: 200
+  groundCheck: {fileID: 4000012724350376}
+--- !u!114 &114000010781143316
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000010789504320}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee75f4aa168934818bd254a30ca83aea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  canThrow: 1
+  ammoObject: {fileID: 1000013257111208, guid: 26d82e896f6bf4acfa04b9c0e29f0f38, type: 2}
+  ammoOrigin: {fileID: 4000013733522664}
 --- !u!212 &212000010034424446
 SpriteRenderer:
   m_ObjectHideFlags: 1
