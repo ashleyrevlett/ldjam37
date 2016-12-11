@@ -30,6 +30,8 @@ public class SpawnAmmo : MonoBehaviour {
 
 
 	private IEnumerator spawn() {
+		float random_time = Random.Range(0f, 1f);
+		yield return new WaitForSeconds (random_time);
 		Instantiate(ammo, new Vector3(spawnPoint.position.x, spawnPoint.position.y, 0), Quaternion.identity);
 
 		yield return null;

@@ -226,7 +226,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   canMove: 1
   reverseMovement: 0
-  moveSpeed: 75
+  minMoveSpeed: 30
+  maxMoveSpeed: 100
 --- !u!114 &114000013448458640
 MonoBehaviour:
   m_ObjectHideFlags: 1

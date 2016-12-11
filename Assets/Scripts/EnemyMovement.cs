@@ -5,7 +5,10 @@ public class EnemyMovement : MonoBehaviour {
 
 	public bool canMove = true;
 	public bool reverseMovement = false;
-	public float moveSpeed = 40f;
+	public float minMoveSpeed = 30f;
+	public float maxMoveSpeed = 60f;
+
+	private float moveSpeed;
 	private float moveDir = 1f; // right hrz axis
 	private Rigidbody2D body;
 	private Animator anim;
@@ -13,6 +16,7 @@ public class EnemyMovement : MonoBehaviour {
 	void Start() {
 		body = GetComponent<Rigidbody2D> ();
 		anim = GetComponent<Animator> ();
+		moveSpeed = Random.Range(minMoveSpeed, maxMoveSpeed);
 	}
 
 	void FixedUpdate (){
