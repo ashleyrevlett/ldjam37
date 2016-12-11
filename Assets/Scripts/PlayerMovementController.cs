@@ -14,6 +14,12 @@ public class PlayerMovementController : MonoBehaviour {
 	private bool playerJumping;          //Tell us if the player is holding down the jump button
 	public Transform groundChecker;      //Gameobject required, placed where you wish "ground" to be detected from
 	private bool isGrounded;             //Check to see if we are grounded
+	private Rigidbody2D body;
+
+
+	void Start() {
+		body = GetComponent<Rigidbody2D> ();
+	}
 
 	void Update () {
 		//Casts a line between our ground checker gameobject and our player
@@ -35,13 +41,11 @@ public class PlayerMovementController : MonoBehaviour {
 
 	void FixedUpdate (){
 		
-		//If we're not sprinting, then give us our general momentum
-		GetComponent<Rigidbody2D>().velocity = new Vector2(Input.GetAxis("Horizontal") * moveSpeed * Time.deltaTime,GetComponent<Rigidbody2D>().velocity.y);
+		body.velocity = new Vector2(Input.GetAxis("Horizontal") * moveSpeed * Time.deltaTime,body.velocity.y);
 
-		//If our player pressed the jump key...
 		if (playerJumped){
-			GetComponent<Rigidbody2D>().AddForce(new Vector2(0,initialJumpForce)); //"Jump" our player up in the air!
-			playerJumped = false; //Our player already jumped, so no need to jump again just yet
+			body.AddForce(new Vector2(0,initialJumpForce)); 
+			playerJumped = false; 
 		}
 
 	}

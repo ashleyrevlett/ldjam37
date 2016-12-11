@@ -6,32 +6,32 @@ public class ThrowBalloon : MonoBehaviour {
 	public bool canThrow = true;
 	public GameObject ammoObject;
 	public Transform ammoOrigin;
-
 	private bool isThrowing = false;
+	private GameData gameData;
 
-	// Use this for initialization
-	void Start () {
-		
+
+	void Start() {
+		gameData = GameObject.FindGameObjectWithTag ("GameController").GetComponent<GameData> ();
 	}
-	
-	// Update is called once per frame
+
 	void Update () {
-	
-		if (Input.GetKeyDown("f")) {
-			StartCoroutine("spawnAmmo");
+		if (Input.GetKeyDown("f") && gameData.getAmmo() > 0) {
+			StartCoroutine("throwAmmo");
 		}
 	}
 
-	private IEnumerator spawnAmmo() {
+
+	private IEnumerator throwAmmo() {
 	
 		isThrowing = true;
+
+		gameData.changeAmmo (-1);
 
 		Instantiate(ammoObject, new Vector3(ammoOrigin.position.x, ammoOrigin.position.y, 0), Quaternion.identity);
 	
 		yield return null;
 
 		isThrowing = false;
-	
 	
 	}
 }
