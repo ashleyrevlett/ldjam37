@@ -18,7 +18,7 @@ public class PlayerMovementController : MonoBehaviour {
 	void Update () {
 		//Casts a line between our ground checker gameobject and our player
 		//If the floor is between us and the groundchecker, this makes "isGrounded" true
-		isGrounded = Physics2D.Linecast(transform.position, groundChecker.position, 1 << LayerMask.NameToLayer("Default"));
+		isGrounded = Physics2D.Linecast(transform.position, groundChecker.position, 1 << LayerMask.NameToLayer("Ground"));
 
 		//If our player hit the jump key, then it's true that we jumped!
 		if (Input.GetButtonDown("Jump") && isGrounded){
