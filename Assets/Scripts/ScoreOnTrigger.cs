@@ -2,7 +2,8 @@
 using System.Collections;
 
 public class ScoreOnTrigger : MonoBehaviour {
-	
+
+	private AudioSource audio;
 	private Animator anim;
 	private bool isScoring = false;
 	private GameData gameData;
@@ -12,6 +13,7 @@ public class ScoreOnTrigger : MonoBehaviour {
 		gameData = GameObject.FindGameObjectWithTag ("GameController").GetComponent<GameData> ();
 		anim = gameObject.GetComponentInParent<Animator> ();
 		movement = gameObject.GetComponentInParent<EnemyMovement>();
+		audio = gameObject.GetComponent<AudioSource> ();
 	}
 		
 	void OnTriggerEnter2D(Collider2D other) {
@@ -27,6 +29,8 @@ public class ScoreOnTrigger : MonoBehaviour {
 		movement.stopMovement ();
 
 		anim.SetTrigger ("hit");
+
+		audio.Play ();
 
 		yield return new WaitForSeconds(2);
 

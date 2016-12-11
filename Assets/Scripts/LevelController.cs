@@ -1,9 +1,11 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 
 public class LevelController : MonoBehaviour {
 
 	public GameObject levelEndPanel;
+	public Text levelEndText;
 	GameData gameData;
 	Countdown countdown;
 	ThrowBalloon throwBalloon;
@@ -59,8 +61,13 @@ public class LevelController : MonoBehaviour {
 			GameObject enemy = enemies [i];
 			EnemyMovement movement = enemy.GetComponent<EnemyMovement> ();
 			if (movement != null) 
-				movement.pause ();
-			
+				movement.pause ();			
+		}
+
+		if (gameData.getAmmo () <= 0) {
+			levelEndText.text = "You ran out of ammo.";
+		} else {
+			levelEndText.text = "You ran out of time.";
 		}
 
 		levelEndPanel.SetActive (true);
@@ -68,7 +75,7 @@ public class LevelController : MonoBehaviour {
 
 	public void Restart() {
 
-		Debug.Log ("LEvelController RESTART");
+		Debug.Log ("LevelController RESTART");
 
 		Application.LoadLevel(Application.loadedLevel);
 

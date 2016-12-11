@@ -3,6 +3,8 @@ using System.Collections;
 
 public class PopOnTrigger : MonoBehaviour {
 
+
+	private AudioSource audio;
 	private Animator anim;
 	private Rigidbody2D body;
 	private bool hasPopped = false;
@@ -12,6 +14,7 @@ public class PopOnTrigger : MonoBehaviour {
 	void Start () {
 		anim = gameObject.GetComponentInParent<Animator> ();
 		body = gameObject.GetComponentInParent<Rigidbody2D> ();
+		audio = gameObject.GetComponent<AudioSource> ();
 	}
 		
 	void OnTriggerEnter2D(Collider2D other) {
@@ -27,6 +30,8 @@ public class PopOnTrigger : MonoBehaviour {
 		body.angularVelocity = 0f;
 		body.gravityScale = 0f;
 		anim.SetTrigger ("pop");
+
+		audio.Play ();
 
 		yield return new WaitForSeconds(1);
 
