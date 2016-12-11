@@ -3,6 +3,8 @@ using System.Collections;
 
 public class PlayerMovementController : MonoBehaviour {
 
+	public bool canMove = true; // set when the player should be frozen
+
 	//Movement related variables
 	public float moveSpeed;  //Our general move speed. This is effected by our
 	//InputManager > Horizontal button's Gravity and Sensitivity
@@ -40,7 +42,13 @@ public class PlayerMovementController : MonoBehaviour {
 	}
 
 	void FixedUpdate (){
-		
+
+		if (!canMove) {
+			body.velocity = Vector2.zero;
+			body.isKinematic = true;
+			return;
+		}
+
 		body.velocity = new Vector2(Input.GetAxis("Horizontal") * moveSpeed * Time.deltaTime,body.velocity.y);
 
 		if (playerJumped){

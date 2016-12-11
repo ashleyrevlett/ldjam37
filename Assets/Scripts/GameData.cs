@@ -4,12 +4,14 @@ using System.Collections;
 
 public class GameData : MonoBehaviour {
 
+	public int startingAmmo = 10;
 	private int points = 0;
-	private int ammo = 10;
+	private int ammo;
 	public Text pointsText;
 	public Text ammoText;
 
 	void Start () {
+		ammo = startingAmmo;
 		refreshDisplay();
 	}
 
@@ -33,7 +35,10 @@ public class GameData : MonoBehaviour {
 	public int getAmmo() {
 		return ammo;
 	}
-
-
+		
+	public int getPoints() {
+		return points;
+	}
+		
 }
 

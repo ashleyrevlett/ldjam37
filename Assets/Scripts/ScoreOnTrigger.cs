@@ -10,8 +10,7 @@ public class ScoreOnTrigger : MonoBehaviour {
 
 	void Start() {
 		gameData = GameObject.FindGameObjectWithTag ("GameController").GetComponent<GameData> ();
-//		anim = gameObject.GetComponentInParent<Animator> ();
-//		body = gameObject.GetComponentInParent<Rigidbody2D> ();
+		anim = gameObject.GetComponentInParent<Animator> ();
 		movement = gameObject.GetComponentInParent<EnemyMovement>();
 	}
 		
@@ -27,7 +26,9 @@ public class ScoreOnTrigger : MonoBehaviour {
 
 		movement.stopMovement ();
 
-		yield return new WaitForSeconds(1);
+		anim.SetTrigger ("hit");
+
+		yield return new WaitForSeconds(2);
 
 		Destroy(gameObject.transform.parent.gameObject);
 

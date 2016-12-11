@@ -8,9 +8,11 @@ public class EnemyMovement : MonoBehaviour {
 	public float moveSpeed = 40f;
 	private float moveDir = 1f; // right hrz axis
 	private Rigidbody2D body;
+	private Animator anim;
 
 	void Start() {
 		body = GetComponent<Rigidbody2D> ();
+		anim = GetComponent<Animator> ();
 	}
 
 	void FixedUpdate (){
@@ -20,5 +22,10 @@ public class EnemyMovement : MonoBehaviour {
 	public void stopMovement() {
 		moveDir = 0f;
 		moveSpeed = 0f;
+	}
+
+	public void pause() {
+		stopMovement ();
+		anim.enabled = false;
 	}
 }

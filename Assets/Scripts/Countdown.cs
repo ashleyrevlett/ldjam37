@@ -9,26 +9,27 @@ public class Countdown : MonoBehaviour {
 	public Text timeText;
 
 	void Start () {
-		Reset();
-	}
-
-	void Reset() {
-		StopCoroutine ("countdown");
+		Stop ();
 		timeRemaining = startingTime;
-		timeText.text = string.Format ("{0}", timeRemaining);
 		StartCoroutine ("countdown");
 	}
-
+		
+	public void Stop() {
+		StopCoroutine ("countdown");
+		timeText.text = string.Format ("{0}", timeRemaining);
+	}
+		
 	private IEnumerator countdown() {
-
 		while (timeRemaining > 0) {
 			timeText.text = string.Format ("{0}", timeRemaining);
 			timeRemaining -= 1;
 			yield return new WaitForSeconds(1);
 		}
-
 		timeText.text = string.Format ("{0}", timeRemaining);
+	}
 
+	public int getTime() {
+		return timeRemaining;
 	}
 
 }

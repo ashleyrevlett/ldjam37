@@ -3,7 +3,7 @@ using System.Collections;
 
 public class ThrowBalloon : MonoBehaviour {
 
-	public bool canThrow = true;
+	public bool canThrow = true; // can be set by levelcontroller
 	public GameObject ammoObject;
 	public Transform ammoOrigin;
 	private bool isThrowing = false;
@@ -15,14 +15,14 @@ public class ThrowBalloon : MonoBehaviour {
 	}
 
 	void Update () {
-		if (Input.GetKeyDown("f") && gameData.getAmmo() > 0) {
+		if (Input.GetKeyDown("space") && gameData.getAmmo() > 0 && canThrow) {
 			StartCoroutine("throwAmmo");
 		}
 	}
 
 
 	private IEnumerator throwAmmo() {
-	
+
 		isThrowing = true;
 
 		gameData.changeAmmo (-1);
